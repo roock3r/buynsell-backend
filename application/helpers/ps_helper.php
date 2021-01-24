@@ -147,8 +147,7 @@ if ( ! function_exists( 'smtp_config' ))
 		    'smtp_user' => $smtp_user, //sender@blog.panacea-soft.com //azxcvbnm
 		    'smtp_pass' => $smtp_pass,
 		    'mailtype'  => 'text', 
-		    'charset'   => 'iso-8859-1' //'utf-8'
-		    //'smtp_crypto' => 'tls'
+		    'charset'   => 'iso-8859-1'
 		);
 		
 		return $config;

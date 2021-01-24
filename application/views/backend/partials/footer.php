@@ -243,8 +243,8 @@
 
             mymap.on('click', onMapClick);
         </script>
-        <script src="<?php echo base_url( 'assets/ckeditor4/ckeditor.js');?>"></script>
-		<?php show_analytic(); ?>
+        <script src="https://cdn.ckeditor.com/4.6.2/standard-all/ckeditor.js"></script>
+        <?php show_analytic(); ?>
         <script src="<?php echo base_url( 'assets/validator/jquery.validate.js' ); ?>"></script>
          
 		<script type="text/javascript">

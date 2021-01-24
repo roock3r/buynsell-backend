@@ -1228,7 +1228,19 @@ class PS_Model extends CI_Model {
 			}
 
 		}
+
+		if(isset($conds['value'])) {
+
+			if ($conds['value'] != "" || $conds['value'] != 0) {
+					
+					$this->db->where( 'value', $conds['value'] );	
+
+			}
+
+		}
+
 		return $this->db->get();
+	    // print_r($this->db->last_query());die;
 
 	}
 

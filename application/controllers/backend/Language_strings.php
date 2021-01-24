@@ -117,19 +117,26 @@ class Language_strings extends BE_Controller {
 		      	// Assign value to variables
 			    $key = trim($csvData[0]);
 			    $value = trim($csvData[1]);
-			    // $language = $this->Language->get_language($conds_lang)->result();
-			    // $language_id = $language[0]->id;
+			
 			    $conds_str['language_id'] = $language_id;
 			    $conds_str['key'] = $key; 
-			    $strrecord = $this->Language_string->get_language_string($conds_str)->result();
 			   
-			    if (!$strrecord) {
+			    $strrecord = $this->Language_string->get_language_string($conds_str)->result();
+			    $id = $strrecord[0]->id;
+			    // print_r($id);die;
+			   
+			    if (!($strrecord )) {
 			    	$str_data = array(
 			    	 	'language_id'=> $language_id,
 			    	 	'key' => $key,
 			    	 	'value' => htmlspecialchars_decode($value) 
 			    	);
 			    	
+			    	$this->Language_string->save($str_data,$id);
+			    }else{
+			    	$str_data = array(
+                       'value' => htmlspecialchars_decode($value)
+			    	);
 			    	$this->Language_string->save($str_data,$id);
 			    }
 		    	

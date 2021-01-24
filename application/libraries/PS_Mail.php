@@ -46,14 +46,12 @@ class PS_Mail {
 			// get system admin email
 			$from = $this->CI->Backend_config->get_one('be1')->sender_email;
 			// send email
-			
 			return $this->send( $to, $subject, $msg, $from, $from_name );
 		} else {
 			// get system admin email
 			$from = $this->CI->Backend_config->get_one('be1')->smtp_user;
 
 			$config = smtp_config();
-			log_message('error', print_r($config,TRUE));
 			
 			$this->CI->load->library('email', $config);
 			$this->CI->email->set_newline("\r\n");
@@ -64,12 +62,7 @@ class PS_Mail {
 
 	        $this->CI->email->subject($subject);
 	        $this->CI->email->message($msg); 
-		$results = $this->CI->email->send();
-
-			$err_msg = $this->CI->email->print_debugger();
-			log_message('error', $err_msg);
-			return $results;
-			//return $this->CI->email->send();
+			return $this->CI->email->send();
 		}
 		
 	}
@@ -100,11 +93,6 @@ class PS_Mail {
 		$this->CI->email->message( $msg );	
 
 		// Send Email
-			$results = $this->CI->email->send();
-
-			$err_msg = $this->CI->email->print_debugger();
-			log_message('error', $err_msg);
-			return $results;
-		//return $this->CI->email->send();
+		return $this->CI->email->send();
 	}
 }

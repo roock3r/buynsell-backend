@@ -448,6 +448,9 @@ class PS_Adapter {
 		// set default photo
 		$obj->default_photo = $this->get_default_photo( $obj->about_id, 'about' );
 
+		//user data deletion
+		$obj->datadelection = $this->CI->Data_deletion->get_one('datadelete1')->content;
+
 	}
 
 	/**

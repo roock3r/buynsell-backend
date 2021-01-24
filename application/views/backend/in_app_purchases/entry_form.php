@@ -10,7 +10,6 @@
       <h3 class="card-title"><?php echo get_msg('in_app_purchase_info')?></h3>
     </div>
 
-    <form role="form">
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
@@ -112,7 +111,6 @@
       </form>
       
     </div>
-   </div>
 
   <div class="card-footer">
       <button type="submit" class="btn btn-sm btn-primary">

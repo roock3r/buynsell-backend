@@ -113,6 +113,7 @@
           <div class="card">
             <?php
               $conds['count'] = 4;
+              $conds['status'] = 1;
 
               $data = array(
                 'panel_title' => get_msg('item_panel_title'),

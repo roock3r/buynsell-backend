@@ -31,7 +31,7 @@ class Item_reports extends BE_Controller {
 	function index() {
 		
 		// no publish filter
-		$conds['no_publish_filter'] = 1;
+		$conds['status'] = 1;
 		
 		// get rows count
 		$this->data['rows_count'] = $this->Itemreport->count_all_by( $conds );
@@ -54,7 +54,7 @@ class Item_reports extends BE_Controller {
 		// condition with search term
 		$conds = array( 'searchterm' => $this->searchterm_handler( $this->input->post( 'searchterm' )) );
 		// no publish filter
-		$conds['no_publish_filter'] = 1;
+		$conds['status'] = 1;
 		$conds['order_by'] = 1;
 		$conds['order_by_field'] = "added_date";
 		$conds['order_by_report'] = "desc";

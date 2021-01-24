@@ -73,7 +73,7 @@ class In_app_purchase extends PS_Model {
 		// searchterm
 		if ( isset( $conds['searchterm'] )) {
 			$this->db->group_start();
-			$this->db->or_like( 'description', $conds['searchterm'] );
+			$this->db->or_like( 'in_app_purchase_prd_id', $conds['searchterm'] );
 			$this->db->group_end();
 		}
 		

@@ -44,6 +44,7 @@ class Users extends API_Controller
 		return $conds;
 
 	}
+	
 
 	/**
 	 * Convert Object
@@ -94,7 +95,8 @@ class Users extends API_Controller
 	        	"device_token" => $this->post('device_token'),
 	        	"code" =>  "",
 	        	"email_verify" => 1,
-	        	"status" => 1 //Need to verified status
+	        	"status" => 1, //Need to verified status
+	        	"added_date" =>  date("Y-m-d H:i:s")
 
 	        );
 	    } else {
@@ -106,7 +108,8 @@ class Users extends API_Controller
 	        	"device_token" => $this->post('device_token'),
 	        	"code" =>  $code,
 	        	"email_verify" => 1,
-	        	"status" => 2 //Need to verified status
+	        	"status" => 2, //Need to verified status
+	        	"added_date" =>  date("Y-m-d H:i:s")
 
 	        );
 	    	$conds['status'] = 2;
@@ -115,6 +118,7 @@ class Users extends API_Controller
         $conds['user_email'] = $user_data['user_email'];
         
        	$user_infos = $this->User->user_exists($conds)->result();
+       	$user_data['added_date'] = date("Y-m-d H:i:s");
 
        	if (empty($user_infos)) {
 
@@ -460,7 +464,8 @@ class Users extends API_Controller
         	"user_about_me" => $this->post('user_about_me'),
         	"device_token" => $this->post('device_token'),
         	"is_show_email" => $this->post('is_show_email'),
-        	"is_show_phone" => $this->post('is_show_phone')
+        	"is_show_phone" => $this->post('is_show_phone'),
+        	"added_date" 	=>  date("Y-m-d H:i:s")
         );
         // print_r($user_data);die;
 
@@ -573,14 +578,14 @@ class Users extends API_Controller
 		// exit if there is an error in validation,
         if ( !$this->is_valid( $rules )) exit;
 
-        	if (!$this->User->exists( array( 'user_email' => $this->post( 'user_email' )))) {
+        	if (!$this->User->exists( array( 'user_email' => $this->post( 'user_email' ) , 'status' => 2 ))) {
 
         		$this->error_response( get_msg( 'err_user_not_exist' ));
 
         	} else {
-        		
         		$email = $this->post( 'user_email' );
 		        $conds['user_email'] = $email;
+		        $conds['status'] = 2;
 		        
 		        $user_id = $this->User->get_one_by($conds)->user_id;
 
@@ -681,7 +686,8 @@ class Users extends API_Controller
 	        	"role_id"	=> 4,
 	        	"facebook_verify" => 1,
 	        	"status" 	=> 1, 
-		        "code"    => ' '
+		        "code"    => ' ',
+		        "added_date" =>  date("Y-m-d H:i:s")
         	);
 
 
@@ -715,7 +721,8 @@ class Users extends API_Controller
 		        	"facebook_verify" => $user_data['facebook_verify'],
 		        	'user_profile_photo' => $user_data['user_profile_photo'],
 		        	"role_id" => $user_data['role_id'],
-		        	"status" 	=> $user_data['status']
+		        	"status" 	=> $user_data['status'],
+		        	"added_date" =>  date("Y-m-d H:i:s")
 					);
 				}else if ($user_name == "") {
 					$user_data = array(
@@ -726,7 +733,8 @@ class Users extends API_Controller
 		        	"facebook_verify" => $user_data['facebook_verify'],
 		        	'user_profile_photo' => $user_data['user_profile_photo'],
 		        	"role_id" => $user_data['role_id'],
-		        	"status" 	=> $user_data['status']
+		        	"status" 	=> $user_data['status'],
+		        	"added_date" =>  date("Y-m-d H:i:s")
 					);
 				}else if ($user_email == "") {
 					$user_data = array(
@@ -737,7 +745,8 @@ class Users extends API_Controller
 		        	"facebook_verify" => $user_data['facebook_verify'],
 		        	'user_profile_photo' => $user_data['user_profile_photo'],
 		        	"role_id" => $user_data['role_id'],
-		        	"status" 	=> $user_data['status']
+		        	"status" 	=> $user_data['status'],
+		        	"added_date" =>  date("Y-m-d H:i:s")
 					);
 				}else{
 					$user_data = array(
@@ -748,10 +757,10 @@ class Users extends API_Controller
 		        	"facebook_verify" => $user_data['facebook_verify'],
 		        	'user_profile_photo' => $user_data['user_profile_photo'],
 		        	"role_id" => $user_data['role_id'],
-		        	"status" 	=> $user_data['status'] 
+		        	"status" 	=> $user_data['status'],
+		        	"added_date" =>  date("Y-m-d H:i:s") 
 					);
 				}
-
 
 				$this->User->save($user_data,$user_id);
 
@@ -794,7 +803,6 @@ class Users extends API_Controller
 				
 			} else {
 				//user email not exist
-
 				if ( !$this->User->save($user_data)) {
         			$this->error_response( get_msg( 'err_user_register' ));
         		}
@@ -887,7 +895,8 @@ class Users extends API_Controller
 				'user_name'    	=> $this->post('user_name'), 
 				'user_email'    => $this->post('user_email'),
 				'user_profile_photo' => $img,
-				'device_token'  => $this->post('device_token')
+				'device_token'  => $this->post('device_token'),
+				"added_date" =>  date("Y-m-d H:i:s")
 			);
 
 			//for user name and user email
@@ -932,7 +941,6 @@ class Users extends API_Controller
 
 				$this->error_response( get_msg( 'err_user_banned' ));
 			} else {
-
 				if ( !$this->User->save($user_data,$user_id)) {
         			$this->error_response( get_msg( 'err_user_register' ));
         		}
@@ -1338,7 +1346,8 @@ class Users extends API_Controller
 		        	"role_id" => 4,
 		        	"google_verify" => 1,
 		        	"status" 	=> 1, 
-			        "code"   => ' '
+			        "code"   => ' ',
+			        "added_date" =>  date("Y-m-d H:i:s")
 	        	);
 
 			} else{
@@ -1351,7 +1360,8 @@ class Users extends API_Controller
 		        	"role_id" => 4,
 		        	"google_verify" => 1,
 		        	"status" 	=> 1, 
-			        "code"   => ' '
+			        "code"   => ' ',
+			        "added_date" =>  date("Y-m-d H:i:s")
         		);
 			}
 
@@ -1456,7 +1466,6 @@ class Users extends API_Controller
     	        
 			} else {
 				//user email not exist
-
 				if ( !$this->User->save($user_data)) {
         		$this->error_response( get_msg( 'err_user_register' ));
         		}
@@ -1549,14 +1558,16 @@ class Users extends API_Controller
 					'user_name'    	=> $this->post('user_name'), 
 					'user_email'    => $this->post('user_email'),
 					'device_token'  => $this->post('device_token'), 
-					'user_profile_photo' => $img,	
+					'user_profile_photo' => $img,
+					"added_date" =>  date("Y-m-d H:i:s")	
 				);
 			} else {
 
 				$user_data = array(
 					'user_name'    	=> $this->post('user_name'), 
 					'user_email'    => $this->post('user_email'),
-					'device_token'  => $this->post('device_token')
+					'device_token'  => $this->post('device_token'),
+					"added_date" =>  date("Y-m-d H:i:s")
 				);
 			}
 
@@ -1599,7 +1610,6 @@ class Users extends API_Controller
 
 				$this->error_response( get_msg( 'err_user_banned' ));
 			} else {
-
 				if ( !$this->User->save($user_data,$user_id)) {
 	        		$this->error_response( get_msg( 'err_user_register' ));
 	        	}
@@ -1672,6 +1682,7 @@ class Users extends API_Controller
         		'phone_id' => $this->post( 'phone_id' ) 
         		))) {
 
+
         	$rules = array(
 	        	array(
 		        	'field' => 'user_name',
@@ -1686,8 +1697,10 @@ class Users extends API_Controller
 	        	"device_token" => $this->post('device_token'),
 	        	"role_id" => 4,
 	        	"phone_verify" => 1,
-	        	"status" => 1
+	        	"status" => 1,
+	        	"added_date" =>  date("Y-m-d H:i:s")
         	);
+
 
         	$conds_phone['user_phone'] = $user_data['user_phone'];
 			$user_infos = $this->User->get_one_user_phone($conds_phone)->result();
@@ -1788,7 +1801,6 @@ class Users extends API_Controller
 				
 			} else {
 				//user phone not exist
-
 				if ( !$this->User->save($user_data)) {
         		$this->error_response( get_msg( 'err_user_register' ));
         		}
@@ -1845,6 +1857,7 @@ class Users extends API_Controller
 				"user_name"    	=> $this->post('user_name'), 
 				"user_phone"    => $this->post('user_phone'),
 				"device_token" => $this->post('device_token'),
+				"added_date" =>  date("Y-m-d H:i:s")
 			);
 
 			//for user name and user email
@@ -1882,7 +1895,6 @@ class Users extends API_Controller
 				$this->error_response( get_msg( 'err_user_banned' ));
 				
 			} else {
-
 				if ( !$this->User->save($user_data,$user_id)) {
 	        		$this->error_response( get_msg( 'err_user_register' ));
 	        	}
@@ -1969,7 +1981,8 @@ class Users extends API_Controller
 	        	"role_id" => 4,
 	        	"apple_verify" => 1,
 	        	"status" 	=> 1, 
-		        "code"   => ' '
+		        "code"   => ' ',
+		        "added_date" =>  date("Y-m-d H:i:s")
     		);
 
         	if ($user_data['user_email'] != "") {
@@ -2069,7 +2082,6 @@ class Users extends API_Controller
 				
 			} else {
 				//user email not exist
-
 				if ( !$this->User->save($user_data)) {
         		$this->error_response( get_msg( 'err_user_register' ));
         		}
@@ -2123,7 +2135,8 @@ class Users extends API_Controller
         	$user_data = array(
 					'user_name'    	=> $this->post('user_name'), 
 					'user_email'    => $this->post('user_email'),
-					'device_token'  => $this->post('device_token')
+					'device_token'  => $this->post('device_token'),
+					"added_date" =>  date("Y-m-d H:i:s")
 				);
 
 			//for user name
@@ -2161,7 +2174,6 @@ class Users extends API_Controller
 
 				$this->error_response( get_msg( 'err_user_banned' ));
 			} else {
-
 				if ( !$this->User->save($user_data,$user_id)) {
 	        		$this->error_response( get_msg( 'err_user_register' ));
 	        	}

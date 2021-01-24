@@ -4,7 +4,7 @@
 ?>
 	
 <section class="content animated fadeInRight">
-	<div class="col-md-6">
+	<div class="col-md-12">
 	<div class="card card-info">
 	    <div class="card-header">
 	        <h3 class="card-title"><?php echo get_msg('policy_info')?></h3>
@@ -31,6 +31,16 @@
 							'id' => 'content',
 						)); ?>
               		</div>
+              		<br>
+
+              		<div class="form-group">
+	                    <label> <span style="font-size: 17px; color: red;"></span>
+	                      <p><?php echo get_msg('privacy_policy_url') ; ?> : <br><br>
+	                        <a href="<?php echo site_url('/privacy_policy');?>" target="_blank">
+	                          <?php echo site_url('/privacy_policy');?></a></p>
+	                    </label>
+                  </div>
+
                 </div>
                 <!-- col-md-6 -->
             </div>

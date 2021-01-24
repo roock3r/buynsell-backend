@@ -25,4 +25,12 @@ class Home extends FE_Controller
 		$this->data['content'] = $content;
 		$this->load_template( 'privacy_policy' );
 	}
+
+	/** for user data deletion */
+	function data_deletion_policy()
+	{
+		$content = $this->Data_deletion->get_one('datadelete1')->content;
+		$this->data['content'] = $content;
+		$this->load_template( 'data_deletion_policy' );
+	}
 }

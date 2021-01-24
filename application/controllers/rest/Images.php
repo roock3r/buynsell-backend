@@ -152,6 +152,20 @@ class Images extends API_Controller
 				}
 
 			   if ( $this->Image->save( $item_img_data) ) {
+
+				   	//for deeplinking image url update by PP
+					$description = $this->Item->get_one($item_id)->description;
+					$title = $this->Item->get_one($item_id)->title;
+					$conds_img = array( 'img_type' => 'item', 'img_parent_id' => $item_id );
+			        $images = $this->Image->get_all_by( $conds_img )->result();
+					$img = $this->ps_image->upload_url . $images[0]->img_path;
+					$deep_link = deep_linking_shorten_url($description,$title,$img,$item_id);
+					$itm_data = array(
+						'dynamic_link' => $deep_link
+					);
+					$this->Item->save($itm_data,$item_id);
+
+
 			   		$conds['img_path'] = $item_img_data['img_path'];
 			   		$img_id = $this->Image->get_one_by($conds)->img_id;
 				   	$image = $this->Image->get_one( $img_id );
@@ -216,6 +230,18 @@ class Images extends API_Controller
 
 
 			   	if ( $this->Image->save( $item_img_data, $img_id ) ) {
+			   		
+			   		//for deeplinking image url update by PP
+					$description = $this->Item->get_one($item_id)->description;
+					$title = $this->Item->get_one($item_id)->title;
+					$conds_img = array( 'img_type' => 'item', 'img_parent_id' => $item_id );
+			        $images = $this->Image->get_all_by( $conds_img )->result();
+					$img = $this->ps_image->upload_url . $images[0]->img_path;
+					$deep_link = deep_linking_shorten_url($description,$title,$img,$item_id);
+					$itm_data = array(
+						'dynamic_link' => $deep_link
+					);
+					$this->Item->save($itm_data,$item_id);
 				   	
 				   	$image = $this->Image->get_one( $img_id );
 

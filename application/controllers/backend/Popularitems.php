@@ -31,7 +31,7 @@ class Popularitems extends BE_Controller {
 	function index() {
 		
 		// no publish filter
-		$conds['no_publish_filter'] = 1;
+		$conds['status'] = 1;
 		
 		// get rows count
 		$this->data['rows_count'] = $this->Popularitem->count_item_by($conds);
@@ -114,15 +114,15 @@ class Popularitems extends BE_Controller {
 
 
 			
-			if($this->input->post('status') != "0") {
+			// if($this->input->post('status') != "0") {
 				
-				$conds['status'] = $this->input->post('status');
-				$this->data['status'] = $this->input->post('status');
-				$this->session->set_userdata(array("status" => $this->input->post('status')));
+			// 	$conds['status'] = $this->input->post('status');
+			// 	$this->data['status'] = $this->input->post('status');
+			// 	$this->session->set_userdata(array("status" => $this->input->post('status')));
 			
-			} else {
-				$this->session->set_userdata(array("status" => NULL ));
-			}
+			// } else {
+			// 	$this->session->set_userdata(array("status" => NULL ));
+			// }
 
 
 			$conds['date'] = $this->input->post( 'date' );
@@ -175,10 +175,10 @@ class Popularitems extends BE_Controller {
 			}
 			
 
-			if($this->session->userdata('status') != 0){
-				$conds['status'] = $this->session->userdata('status');
-				$this->data['status'] = $this->session->userdata('status');
-			}
+			// if($this->session->userdata('status') != 0){
+			// 	$conds['status'] = $this->session->userdata('status');
+			// 	$this->data['status'] = $this->session->userdata('status');
+			// }
 
 			if($this->session->userdata('date') != NULL){
 				$conds['date'] = $this->session->userdata('date');
@@ -187,9 +187,9 @@ class Popularitems extends BE_Controller {
 
 		}
 
-		if ($conds['status'] == "Select Status") {
+		//if ($conds['status'] == "Select Status") {
 			$conds['status'] = "1";
-		}
+		//}
 		
 		// pagination
 		$this->data['rows_count'] = $this->Popularitem->count_item_by( $conds );

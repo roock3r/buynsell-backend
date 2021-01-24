@@ -203,18 +203,19 @@ class Backend_configs extends BE_Controller {
 			$data['dyn_link_deep_url'] = $this->get_data( 'dyn_link_deep_url' );
 		}
 
-		// ios_boundle_id 
-		if ( $this->has_data( 'ios_boundle_id ' ) 
-			&& !empty( $this->get_data( 'ios_boundle_id ' ))) {
-			$data['ios_boundle_id '] = $this->get_data( 'ios_boundle_id ' );
+		// ios_boundle_id
+		if ( $this->has_data( 'ios_boundle_id' ) 
+			&& !empty( $this->get_data( 'ios_boundle_id' ))) {
+			$data['ios_boundle_id'] = $this->get_data( 'ios_boundle_id' );
 		}
 
-		// ios_appstore_id 
-		if ( $this->has_data( 'ios_appstore_id ' ) 
-			&& !empty( $this->get_data( 'ios_appstore_id ' ))) {
-			$data['ios_appstore_id '] = $this->get_data( 'ios_appstore_id ' );
+		// ios_appstore_id
+		if ( $this->has_data( 'ios_appstore_id' ) 
+			&& !empty( $this->get_data( 'ios_appstore_id' ))) {
+			$data['ios_appstore_id'] = $this->get_data( 'ios_appstore_id' );
 		}
 
+        // print_r($data);die;
 
 		// save backend config
 		if ( ! $this->Backend_config->save( $data, $id )) {

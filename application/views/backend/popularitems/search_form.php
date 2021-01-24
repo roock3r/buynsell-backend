@@ -162,7 +162,7 @@
 
 		  	</div>
 
-		  		<div class="form-group" style="padding-top: 3px;padding-right: 2px;">
+		  		<!-- <div class="form-group" style="padding-top: 3px;padding-right: 2px;">
 						
 				<select class="form-control form-control-sm mr-3" name="status" id="status">
 							
@@ -180,7 +180,7 @@
 	    					}
 						?>
 				</select> 
-			</div>
+			</div> -->
 
 		  	<div class="form-group" style="padding-top: 3px;padding-right: 5px;">
 			  	<button type="submit" value="submit" name="submit" class="btn btn-sm btn-primary">

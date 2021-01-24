@@ -13,6 +13,7 @@ class Items extends API_Controller
 	function __construct()
 	{
 		parent::__construct( 'Item' );
+		$this->load->library( 'PS_Image' );
 	}
 
 	/**
@@ -33,6 +34,7 @@ class Items extends API_Controller
 			$conds['order_by_field'] = $setting->order_by_field;
 			$conds['order_by_type'] = $setting->order_by_type;
 		}
+		
 
 		if ( $this->is_search ) {
 
@@ -207,7 +209,8 @@ class Items extends API_Controller
         	"lng" => $this->post('lng'),
         	"status" => $status,
         	"id" => $this->post('id'),
-        	"added_user_id" => $this->post('added_user_id')
+        	"added_user_id" => $this->post('added_user_id'),
+        	"added_date" =>  date("Y-m-d H:i:s")
         	
         );
 
